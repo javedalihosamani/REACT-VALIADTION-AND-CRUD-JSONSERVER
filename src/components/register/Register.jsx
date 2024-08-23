@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import { registerUser } from './Storage';
 
 const Register = () => {
 
@@ -8,11 +9,21 @@ const Register = () => {
   const password  = useRef();
 
   // Register
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(name);
+    /* console.log(name);
     console.log(name.current);
-    console.log(name.current.value);
+    console.log(name.current.value); */
+
+    // JSON FORMAT
+    const data = {
+      name: name.current.value,
+      email: email.current.value,
+      mobile: mobile.current.value,
+      password: password.current.value
+    }
+    //console.table(data);
+    await registerUser(data);
   }
 
   return (

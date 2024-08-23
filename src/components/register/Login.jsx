@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { loginHandler } from './Storage';
 
 const Login = () => {
+
+  const email = useRef();
+  const password = useRef();
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const data = { email: email.current.value, password: password.current.value };
+    //console.table('login data =', data);
+
+    await loginHandler(data);
+  }
+
   return (
     <div className='container my-5'>
         <div className="row">
@@ -19,7 +32,8 @@ const Login = () => {
                       name="email"
                       className="form-control"
                       placeholder="Enter email" 
-                      required />
+                      required 
+                      ref={email}/>
                   </div>
                   <div className="form-group my-3">
                     <label htmlFor="password">Password</label>
@@ -29,12 +43,14 @@ const Login = () => {
                       name="password" 
                       className="form-control" 
                       placeholder="Enter password" 
-                      required />
+                      required 
+                      ref={password}/>
                   </div>
                   <div className="for-group my-3">
                     <button 
                       type="submit"
-                      className="btn btn-outline-success btn-block">
+                      className="btn btn-outline-success btn-block"
+                      onClick={submitHandler}>
                         Login
                     </button>
                   </div>

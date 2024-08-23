@@ -13,10 +13,10 @@ const Header = () => {
             <div className="collapse navbar-collapse justify-content-end" id="menu">
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <NavLink to={`/login`} className="nav-link">Login</NavLink>
+                        <NavLink to={`/login`} className={({ isActive }) => (isActive ? 'active nav-link' : 'nav-link')}>Login</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to={`/register`} className="nav-link">Register</NavLink>
+                        <NavLink to={`/register`} className={({ isActive }) => (isActive ? 'active nav-link' : 'nav-link')}>Register</NavLink>
                     </li>
                 </ul>
             </div>
