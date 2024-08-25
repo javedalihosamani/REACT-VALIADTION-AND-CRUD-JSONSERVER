@@ -37,6 +37,33 @@ const registerUser = async (user) => {
 
 // Login Handler
 const loginHandler = async (user) => {
-  console.log("Login", user);
+  //console.log("Login", user);
+
+  const userFound = users.find((item) => item.email === user.email);
+
+  if (!userFound) {
+    toast.error(`${user.email} does not exists.`);
+    return;
+  } else {
+    if (userFound.password === user.password) {
+      localStorage.setItem("loginStatus", true);
+      toast.success(`Welcome ${userFound.name}!`);
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 4000);
+    } else {
+      toast.error("Invalid password.");
+    }
+  }
 };
-export { registerUser, loginHandler };
+
+// Logout Handler
+const logoutHandler = async () => {
+  localStorage.removeItem("loginStatus");
+  toast.success("Successfully logout");
+  setTimeout(() => {
+    window.location.href = "/login";
+  }, 4000);
+};
+
+export { registerUser, loginHandler, logoutHandler };
