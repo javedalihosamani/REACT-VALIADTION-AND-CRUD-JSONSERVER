@@ -27,7 +27,7 @@ const Create = () => {
                     minLength={4}
                     maxLength={10}
                     value={contact.name} //contact.name = "User Name"
-                    onChange={readValue}
+                    onChange={(readValue)}
                   />
                 </div>
                 <div className="form-group my-3">
