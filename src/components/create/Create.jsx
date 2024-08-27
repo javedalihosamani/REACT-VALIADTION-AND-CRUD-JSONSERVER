@@ -3,7 +3,7 @@ import MiddleWare from '../middleware/MiddleWare'
 
 const Create = () => {
 
-  const {contact, readValue}  = MiddleWare();
+  const {contact, readValue, errors, submitData}  = MiddleWare();
 
   return (
     <div className='container my-5'>
@@ -14,7 +14,7 @@ const Create = () => {
               <h1 className="text-white text-center">CREATE USER</h1>
             </div>
             <div className="card-body">
-              <form autoComplete='off'>
+              <form autoComplete='off' onSubmit={submitData}>
                 <div className="form-group">
                   <label htmlFor="name">Name</label>
                   <input 
@@ -29,6 +29,9 @@ const Create = () => {
                     value={contact.name} //contact.name = "User Name"
                     onChange={(readValue)}
                   />
+                  {
+                    errors.name && <div className="alert alert-danger">{errors.name}</div>
+                  }
                 </div>
                 <div className="form-group my-3">
                   <label htmlFor="email">Email</label>
@@ -43,6 +46,9 @@ const Create = () => {
                     value={contact.email}
                     onChange={readValue}
                   />
+                  {
+                    errors.email && <div className="alert alert-danger">{errors.email}</div>
+                  }
                 </div>
                 <div className="form-group my-3">
                   <label htmlFor="image">Profile Image</label>
@@ -57,6 +63,9 @@ const Create = () => {
                     value={contact.image}
                     onChange={readValue}
                     />
+                    {
+                      errors.image && <div className="alert alert-danger">{errors.image}</div>
+                    }
                 </div>
                 <div className="form-group my-3">
                   <label htmlFor="mobile">Mobile</label>
@@ -68,7 +77,10 @@ const Create = () => {
                     placeholder='Mobile Number'
                     required
                     value={contact.mobile}
-                    onChange={readValue}/>                    
+                    onChange={readValue}/>
+                    {
+                      errors.mobile && <div className="alert alert-danger">{errors.mobile}</div>
+                    }                  
                 </div>
                 <div className="form-group my-3">
                   <label htmlFor="address">Address</label>
@@ -80,6 +92,9 @@ const Create = () => {
                     required
                     value={contact.address}
                     onChange={readValue}></textarea>
+                    {
+                      errors.address && <div className="alert alert-danger">{errors.address}</div>
+                    }
                 </div>
                 <div className="form-group my-3">
                   <input type="submit" value="Create" className="btn btn-outline-secondary"/>

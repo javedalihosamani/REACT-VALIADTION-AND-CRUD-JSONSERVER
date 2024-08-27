@@ -1,5 +1,8 @@
+import axios from 'axios';
 import { omit } from 'lodash';
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // Create Random User ID
 const randomId = () => {
@@ -22,7 +25,7 @@ const MiddleWare = () => {
     //console.log("Contact", contact);
 
     const [errors, setErrors] = useState({});
-    console.log("Error", errors);
+    //console.log("Error", errors);
 
     // Read Value from Create Component
     const readValue = (e) => {
@@ -109,7 +112,28 @@ const MiddleWare = () => {
         setErrors({...errors, [prop] : msg});
     }
 
-  return {contact, setContact, readValue}
+    const navigate = useNavigate();
+    
+    // Submitting Data to the server
+    const submitData = async (e) => {
+        e.preventDefault();
+        if(Object.keys(errors).length === 0  && Object.keys(contact).length !== 0){
+            //console.log("Submit", contact);
+            // Make API call to server here\
+
+            await axios.post('/contacts', contact).then(res =>{
+                toast.success("New User Created");
+                navigate(`/`);
+            }).catch((error)=> toast.error(error.message));
+        } else {
+            toast.error("Please Fill All Fields Properly");
+            // Reset Form
+            setContact(initState);
+            setErrors({});
+        }
+    }
+
+  return {contact, setContact, readValue, errors, submitData}
 }
 
 export default MiddleWare;
