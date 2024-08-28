@@ -8,6 +8,7 @@ import Pnf from "./components/Pnf";
 import Dashboard from "./components/dashboard/Dashboard";
 import Create from "./components/create/Create";
 import ProtectedRoute from "./components/protect-route/ProtectedRoute";
+import Update from "./components/update/Update";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path={`/`} element={<Dashboard />} />
           <Route path={`/dashboard`} element={<Dashboard />} />
           <Route path={`/create`} element={<Create />} />
+          <Route path={`/update/:id`} element={<Update />} />
         </Route>
         <Route path={`/login`} element={<Login />} />
         <Route path={`/register`} element={<Register />} />

@@ -1,8 +1,23 @@
+import axios from 'axios';
 import React from 'react'
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Users = (props) => {
     const {id, name, address, image, email} = props;
+
+    const deleteContact = (id) => {
+        //alert(id);
+        if(window.confirm(`Do you want to delete the records of ${id}`)){
+            axios.delete(`/contacts/${id}`).then(res=>{
+                toast.success('Successfully Deleted');
+                setTimeout(()=>{window.location.reload()}, 4000);
+            }).catch(error => toast.error(error.message));
+        } else {
+            toast.warning("Delete Terminated");
+        }
+    }
+
   return (
     <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
         <div className="card my-3 shadow">
@@ -21,8 +36,8 @@ const Users = (props) => {
                 </ul>
             </div>
             <div className="card-footer">
-                <NavLink className='text-secondary'><i class="bi bi-pencil-square h3"></i></NavLink>
-                <NavLink className='float-end text-secondary'><i class="bi bi-trash3-fill h3"></i></NavLink>
+                <NavLink className='text-outline-secondary' to={`/update/${id}`}><i className="bi bi-pencil-square h3"></i></NavLink>
+                <NavLink className='float-end text-outline-secondary' onClick={()=>{deleteContact(id)}}><i className="bi bi-trash3-fill h3"></i></NavLink>
             </div>
         </div>
     </div>

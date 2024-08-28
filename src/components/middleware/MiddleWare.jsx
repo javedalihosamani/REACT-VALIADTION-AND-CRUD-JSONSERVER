@@ -11,7 +11,7 @@ const randomId = () => {
 
 // Initial Object 
 const initState = {
-    id: randomId(),
+    id: "",
     name: "",
     email: "",
     image: "",
@@ -120,7 +120,7 @@ const MiddleWare = () => {
         if(Object.keys(errors).length === 0  && Object.keys(contact).length !== 0){
             //console.log("Submit", contact);
             // Make API call to server here\
-
+            contact.id = randomId();
             await axios.post('/contacts', contact).then(res =>{
                 toast.success("New User Created");
                 navigate(`/`);
